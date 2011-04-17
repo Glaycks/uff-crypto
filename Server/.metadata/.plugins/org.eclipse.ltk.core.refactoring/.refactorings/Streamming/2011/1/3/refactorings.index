@@ -1,0 +1,10 @@
+1295108909765	Rename method 'criptaDecriptaDES'
+1295112868656	Rename local variable 'd'
+1295112955968	Rename local variable 'i'
+1295113022687	Rename local variable 'kol'
+1295113751828	Rename local variable 'fio'
+1295123005218	Rename method 'criptaAES'
+1295123332953	Delete element
+1295123340671	Delete element
+1295125138656	Rename local variable 'packetBits'
+1295125320312	Rename local variable 'encryptedBytes'

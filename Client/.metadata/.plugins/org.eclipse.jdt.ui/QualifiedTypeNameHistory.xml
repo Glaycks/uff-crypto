@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="java.util.Arrays"/>
+<fullyQualifiedTypeName name="java.math.BigInteger"/>
+<fullyQualifiedTypeName name="AESUtilities"/>
+<fullyQualifiedTypeName name="monografia.commons.AESUtilities"/>
+<fullyQualifiedTypeName name="monografia.commons.Utilities"/>
+<fullyQualifiedTypeName name="monografia.commons.DESUtilities"/>
+<fullyQualifiedTypeName name="java.lang.SuppressWarnings"/>
+<fullyQualifiedTypeName name="java.lang.IllegalArgumentException"/>
+<fullyQualifiedTypeName name="monografia.commons.ALGORITHM"/>
+<fullyQualifiedTypeName name="monografia.commons.Algorithm"/>
+<fullyQualifiedTypeName name="java.util.Date"/>
+</qualifiedTypeNameHistroy>

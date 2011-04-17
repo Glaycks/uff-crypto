@@ -1,0 +1,11 @@
+1295106854703	Extract local variable 'ctDoFinal'
+1295107049937	Extract local variable 'ctDoFinal'
+1295108450484	Rename field 'keyBytes'
+1295117755625	Rename local variable 'decryptedBytes'
+1295117789156	Rename local variable 'decrypatedBytes'
+1295118718031	Delete element
+1295118882343	Delete element
+1295122721062	Rename method 'send_RTSP_request'
+1295123557468	Rename method 'parse_server_response'
+1295123639750	Rename local variable 'RTSP_server_port'
+1295124307031	Rename type 'ALGORITMO'
