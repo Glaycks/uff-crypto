@@ -2,7 +2,7 @@
 
 = Introduction =
 
-Work completion before the end of undergraduate course of Computer Science, Universidade Federal Fluminense (UFF) as partial requirement for obtaining a BS in Computer Science.
+Work completion before the end of undergraduate course of Computer Science, *Universidade Federal Fluminense (UFF)* as partial requirement for obtaining a BS in Computer Science.
 
 
 = Details =
