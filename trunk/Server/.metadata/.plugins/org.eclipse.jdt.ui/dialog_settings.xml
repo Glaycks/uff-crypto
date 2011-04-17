@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<item value="filter_imports;" key="filters_last_used"/>
+	<item value="35" key="clean_up_save_particpant_modify_dialog.preferred_y"/>
+	<item value="556" key="clean_up_save_particpant_modify_dialog.preferred_height"/>
+	<item value="121" key="clean_up_save_particpant_modify_dialog.preferred_x"/>
+	<item value="0" key="org.eclipse.jdt.uiformatter_page.modify_dialog_tab_page.last_focus_index"/>
+	<item value="873" key="clean_up_save_particpant_modify_dialog.preferred_width"/>
+	<item value="C:" key="org.eclipse.jdt.ui.cleanup.loadpath"/>
+	<item value="C:" key="org.eclipse.jdt.ui.codeformatter.loadpath"/>
+	<item value="4" key="clean_up_save_particpant_modify_dialog.last_focus"/>
+	<section name="OptionalMessageDialog.hide.">
+		<item value="true" key="org.eclipse.jdt.ui.typecomment.deprecated"/>
+	</section>
+	<section name="completion_proposal_size">
+	</section>
+	<section name="JavaElementSearchActions">
+	</section>
+	<section name="BuildPathsPropertyPage">
+		<item value="2" key="pageIndex"/>
+	</section>
+	<section name="RenameInformationPopup">
+	</section>
+	<section name="org.eclipse.ltk.ui.refactoring.settings">
+	</section>
+	<section name="ProblemSeveritiesConfigurationBlock">
+		<item value="false" key="expanded4"/>
+		<item value="false" key="expanded3"/>
+		<item value="true" key="expanded2"/>
+		<item value="true" key="expanded1"/>
+		<item value="false" key="expanded6"/>
+		<item value="false" key="expanded5"/>
+		<item value="true" key="expanded0"/>
+	</section>
+</section>
