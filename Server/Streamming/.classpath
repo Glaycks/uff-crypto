@@ -2,7 +2,7 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="C:/Documents and Settings/Jaconé/workspaceClient/Commons/classes"/>
-	<classpathentry kind="lib" path="C:/Documents and Settings/Jaconé/workspaceClient/Desempenho/classes"/>
+	<classpathentry kind="lib" path="C:/uff-crypto/Commons/classes"/>
+	<classpathentry kind="lib" path="C:/uff-crypto/Desempenho/classes"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
