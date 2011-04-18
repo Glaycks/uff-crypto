@@ -7,7 +7,7 @@ public class BlowFishUtilities {
 
 	private static final String AGORITHM = "Blowfish";
 	// chave de 128 bits
-	private static final String CHAVE = "MONOGRAFIA_MONOGR";
+	private static final String CHAVE = "MONOGRAFIA_MONOG";
 
 	public static byte[] encripta(final byte[] bloco) {
 		try {
