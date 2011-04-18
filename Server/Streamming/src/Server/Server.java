@@ -21,7 +21,6 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Date;
 import java.util.StringTokenizer;
 
 import javax.swing.JFrame;
@@ -231,8 +230,7 @@ public class Server extends JFrame implements ActionListener {
                 final int tamanhoTextoClaro = packetLength;
                 System.out.println("tamanho do texto claro: " + tamanhoTextoClaro);
 
-                Date data = new Date();
-                final long tempoInicial = data.getTime();
+                //Desempenho
 
                 // Criptografa
                 byte[] encryptedBits = null;
@@ -262,13 +260,7 @@ public class Server extends JFrame implements ActionListener {
 
                 packetLength = encryptedBits.length;
 
-                // aki
-                System.out.println("tamanho do texto cifrado: " + packetLength);
-                System.out.println("tempoInicial: " + tempoInicial);
-                data = new Date();
-                System.out.println("novoTempo: " + data.getTime());
-                System.out.println("diferença : " + (data.getTime() - tempoInicial));
-                Analise.acumulaValor(data.getTime() - tempoInicial);
+                //Desempenho
 
                 // send the packet as a DatagramPacket over the UDP socket
                 senddp = new DatagramPacket(encryptedBits, packetLength, clientIPAddr, rtpDestPort);
