@@ -6,7 +6,8 @@ import javax.crypto.spec.SecretKeySpec;
 public class BlowFishUtilities {
 
 	private static final String AGORITHM = "Blowfish";
-	private static final String CHAVE = "MONOGRAFIA";
+	// chave de 128 bits
+	private static final String CHAVE = "MONOGRAFIA_MONOGR";
 
 	public static byte[] encripta(final byte[] bloco) {
 		try {

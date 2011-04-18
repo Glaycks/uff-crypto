@@ -26,7 +26,6 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.net.SocketException;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.StringTokenizer;
 
 import javax.swing.ImageIcon;
@@ -42,6 +41,7 @@ import monografia.commons.BlowFishUtilities;
 import monografia.commons.DESUtilities;
 import monografia.commons.DESedeUtilities;
 import monografia.commons.Utilities;
+import monografia.desempenho.ThreadTimes;
 
 public class Client {
 
@@ -198,8 +198,9 @@ public class Client {
                 // efetivamente foi preenchido.
                 final byte[] encryptedBytes = Arrays.copyOfRange(rcvdp.getData(), 0, rcvdp.getLength());
 
-                Date data = new Date();
-                final long tempoInicial = data.getTime();
+                // Métodos para cálculo do desempenho
+                ThreadTimes tt = new ThreadTimes( 100 );  // 100ms interval
+                tt.start( );
 
                 // Decriptografa
                 byte[] decryptedBytes = null;
@@ -226,11 +227,15 @@ public class Client {
                         throw new IllegalArgumentException("Algoritmo não previsto");
                 }
 
-                System.out.println("tempoInicial: " + tempoInicial);
-                data = new Date();
-                System.out.println("novoTempo: " + data.getTime());
-                System.out.println("diferença : " + (data.getTime() - tempoInicial));
-
+                // Métodos para cálculo do desempenho
+                tt.interrupt( );
+                long taskUserTimeNano = tt.getTotalUserTime();
+                long taskSystemTimeNano = tt.getTotalSystemTime();
+                long taskCpuTimeNamo = tt.getTotalCpuTime();
+                System.out.println("taskUserTimeNano: " + taskUserTimeNano);
+                System.out.println("taskSystemTimeNano: " + taskSystemTimeNano);
+                System.out.println("taskCpuTimeNamo: " + taskCpuTimeNamo);
+                
                 // Constroi o pacote com os dados decriptografados.
                 final RTPPacket rtpPacket = new RTPPacket(decryptedBytes, decryptedBytes.length);
                 // RTPPacket rtpPacket = new RTPPacket(rcvdp.getData(),
