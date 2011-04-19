@@ -35,12 +35,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-import monografia.commons.AESUtilities;
-import monografia.commons.Algorithm;
-import monografia.commons.BlowFishUtilities;
-import monografia.commons.DESUtilities;
-import monografia.commons.DESedeUtilities;
-import monografia.commons.Utilities;
+import monografia.commons.*;
 import monografia.desempenho.ThreadTimes;
 
 public class Client {
@@ -199,9 +194,11 @@ public class Client {
                 final byte[] encryptedBytes = Arrays.copyOfRange(rcvdp.getData(), 0, rcvdp.getLength());
 
                 // Métodos para cálculo do desempenho
-                ThreadTimes tt = new ThreadTimes( 100 );  // 100ms interval
-                tt.start( );
-
+                long id = java.lang.Thread.currentThread().getId();
+                ThreadTimes taskUserTimeNano = new ThreadTimes();
+                ThreadTimes taskSystemTimeNano = new ThreadTimes();
+                ThreadTimes taskCpuTimeNano = new ThreadTimes();
+                
                 // Decriptografa
                 byte[] decryptedBytes = null;
                 switch (Client.algorithm) {
@@ -228,13 +225,13 @@ public class Client {
                 }
 
                 // Métodos para cálculo do desempenho
-                tt.interrupt( );
-                long taskUserTimeNano = tt.getTotalUserTime();
-                long taskSystemTimeNano = tt.getTotalSystemTime();
-                long taskCpuTimeNamo = tt.getTotalCpuTime();
-                System.out.println("taskUserTimeNano: " + taskUserTimeNano);
-                System.out.println("taskSystemTimeNano: " + taskSystemTimeNano);
-                System.out.println("taskCpuTimeNamo: " + taskCpuTimeNamo);
+                long userTimeNano = taskUserTimeNano.getCpuTime(id);
+                long systemTimeNano = taskSystemTimeNano.getSystemTime(id);
+                long cpuTimeNano = taskCpuTimeNano.getCpuTime(id);
+                
+                System.out.println("taskUserTimeNano: " + userTimeNano);
+                System.out.println("taskSystemTimeNano: " + systemTimeNano);
+                System.out.println("taskCpuTimeNano: " + cpuTimeNano);
                 
                 // Constroi o pacote com os dados decriptografados.
                 final RTPPacket rtpPacket = new RTPPacket(decryptedBytes, decryptedBytes.length);
