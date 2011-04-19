@@ -1,96 +1,54 @@
 package monografia.desempenho;
 import java.lang.management.*;
-import java.util.HashMap;
-import java.util.Collection;
 
 /*
  * http://nadeausoftware.com/articles/2008/03/java_tip_how_get_cpu_and_user_time_benchmarking#TimingamultithreadedtaskusingCPUsystemandusertime
  */
 
-public final class ThreadTimes
-    extends Thread
-{
-    private class Times {
-        public long startCpuTime;
-        public long startUserTime;
-        public long endCpuTime;
-        public long endUserTime;
-    }
- 
-    private final long interval;
-    private final long threadId;
-    private final HashMap<Long,Times> history = new HashMap<Long,Times>();
- 
-    /** Create a polling thread to track times. */
-    public ThreadTimes( final long interval ) {
-        super( "Thread time monitor" );
-        this.interval = interval;
-        threadId = getId( );
-        setDaemon( true );
-    }
- 
-    /** Run the thread until interrupted. */
-    public void run( ) {
-        while ( !isInterrupted( ) ) {
-            update( );
-            try { sleep( interval ); }
-            catch ( InterruptedException e ) { break; }
-        }
-    }
- 
-    /** Update the hash table of thread times. */
-    private void update( ) {
-        final ThreadMXBean bean =
-            ManagementFactory.getThreadMXBean( );
-        final long[] ids = bean.getAllThreadIds( );
-        for ( long id : ids ) {
-            if ( id == threadId )
-                continue;   // Exclude polling thread
-            final long c = bean.getThreadCpuTime( id );
-            final long u = bean.getThreadUserTime( id );
-            if ( c == -1 || u == -1 )
-                continue;   // Thread died
- 
-            Times times = history.get( id );
-            if ( times == null ) {
-                times = new Times( );
-                times.startCpuTime  = c;
-                times.startUserTime = u;
-                times.endCpuTime    = c;
-                times.endUserTime   = u;
-                history.put( id, times );
-            } else {
-                times.endCpuTime  = c;
-                times.endUserTime = u;
-            }
-        }
-    }
- 
-    /** Get total CPU time so far in nanoseconds. */
-    public long getTotalCpuTime( ) {
-        final Collection<Times> hist = history.values( );
-        long time = 0L;
-        for ( Times times : hist )
-            time += times.endCpuTime - times.startCpuTime;
-        return time;
-    }
- 
-    /** Get total user time so far in nanoseconds. */
-    public long getTotalUserTime( ) {
-        final Collection<Times> hist = history.values( );
-        long time = 0L;
-        for ( Times times : hist )
-            time += times.endUserTime - times.startUserTime;
-        return time;
-    }
- 
-    /** Get total system time so far in nanoseconds. */
-    public long getTotalSystemTime( ) {
-        return getTotalCpuTime( ) - getTotalUserTime( );
-    }
+public class ThreadTimes{
+	
+	public ThreadTimes(){
+		
+	}
+		 
+	/** Get CPU time in nanoseconds. */
+	public long getCpuTime( long ids ) {
+	    ThreadMXBean bean = ManagementFactory.getThreadMXBean( );
+	    if ( ! bean.isThreadCpuTimeSupported( ) )
+	        return 0L;
+	    
+	    long t = bean.getThreadCpuTime( ids );
+	    if ( t != -1 ){
+	    	return t;
+	    } else{
+	    	return 0L;
+	    }
+	}
+	 
+	/** Get user time in nanoseconds. */
+	public long getUserTime(long ids ) {
+	    ThreadMXBean bean = ManagementFactory.getThreadMXBean( );
+	    if ( ! bean.isThreadCpuTimeSupported( ) )
+	        return 0L;
+	    long t = bean.getThreadCpuTime( ids );
+	    if ( t != -1 ){
+	    	return t;
+	    } else{
+	    	return 0L;
+	    }
+	}
+		  
+	/** Get system time in nanoseconds. */
+	public long getSystemTime( long ids ) {
+	    ThreadMXBean bean = ManagementFactory.getThreadMXBean( );
+	    if ( ! bean.isThreadCpuTimeSupported( ) )
+	        return 0L;
+	    
+	    long time = 0L;
+        long tc = bean.getThreadCpuTime(  ids );
+        long tu = bean.getThreadUserTime( ids );
+        if ( tc != -1 && tu != -1 )
+            time += (tc - tu);
+	    return time;
+	}
 }
-
-
-
-
-
