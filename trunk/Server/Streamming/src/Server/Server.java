@@ -21,13 +21,13 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Date;
 import java.util.StringTokenizer;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
-
 import monografia.commons.AESUtilities;
 import monografia.commons.Algorithm;
 import monografia.commons.BlowFishUtilities;
@@ -77,6 +77,9 @@ public class Server extends JFrame implements ActionListener {
                                       // the session
     private static final String CRLF = "\r\n";
     private static Algorithm algorithm = null;
+    
+    //aki
+    Date data;
 
     public static void main(final String argv[]) throws Exception {
         if (argv.length != 2) {
@@ -181,6 +184,10 @@ public class Server extends JFrame implements ActionListener {
         timer = new Timer(Server.FRAME_PERIOD, this);
         timer.setInitialDelay(0);
         timer.setCoalesce(true);
+        
+    	//aki
+    	//Long inicio = data.getTime();
+    	//System.out.println("inicio = " + inicio);
 
         // allocate memory for the sending buffer
         buf = new byte[15000];
@@ -205,7 +212,7 @@ public class Server extends JFrame implements ActionListener {
     // ------------------------
     @Override
     public void actionPerformed(final ActionEvent e) {
-
+    	
         // if the current image nb is less than the length of the video
         if (imagenb < Server.VIDEO_LENGTH) {
             // update current imagenb
@@ -226,11 +233,9 @@ public class Server extends JFrame implements ActionListener {
                 final byte[] packetBits = new byte[packetLength];
                 rtpPacket.getPacket(packetBits);
 
-                // aki
-                final int tamanhoTextoClaro = packetLength;
+                //aki
+                int tamanhoTextoClaro = packetLength;
                 System.out.println("tamanho do texto claro: " + tamanhoTextoClaro);
-
-                //Desempenho
 
                 // Criptografa
                 byte[] encryptedBits = null;
@@ -251,16 +256,15 @@ public class Server extends JFrame implements ActionListener {
                     case XOR:
                         encryptedBits = criptaDecripta(packetBits);
                         break;
-                    case Nenhum:
-                        encryptedBits = packetBits;
-                        break;
                     default:
                         throw new IllegalArgumentException("Algoritmo não previsto");
                 }
 
                 packetLength = encryptedBits.length;
 
-                //Desempenho
+                //aki
+                System.out.println("tamanho do texto cifrado: " + packetLength);
+                Analise.acumulaValor(packetLength - tamanhoTextoClaro);
 
                 // send the packet as a DatagramPacket over the UDP socket
                 senddp = new DatagramPacket(encryptedBits, packetLength, clientIPAddr, rtpDestPort);
@@ -280,8 +284,7 @@ public class Server extends JFrame implements ActionListener {
         } else {
             // if we have reached the end of the video file, stop the timer
             timer.stop();
-            // aki
-            System.out.println("Tempo médio:" + Analise.retornaMedia());
+
         }
     }
 
