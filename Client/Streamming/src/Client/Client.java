@@ -35,8 +35,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-import monografia.commons.*;
-import monografia.desempenho.ThreadTimes;
+import monografia.commons.AESUtilities;
+import monografia.commons.Algorithm;
+import monografia.commons.BlowFishUtilities;
+import monografia.commons.DESUtilities;
+import monografia.commons.DESedeUtilities;
+import monografia.commons.Utilities;
 
 public class Client {
 
@@ -145,6 +149,18 @@ public class Client {
         }
     }
 
+    // Tratamento para o botão do Parar
+    // --------------------------------
+    private class stopButtonListener implements ActionListener {
+        @Override
+        public void actionPerformed(final ActionEvent e) {
+
+            // TODO implementar o botão parar
+            System.out.println("- PARAR -");
+
+        }
+    }
+
     // Handler for Teardown button
     // -----------------------
     private class tearButtonListener implements ActionListener {
@@ -192,13 +208,7 @@ public class Client {
                 // Não estou interessado nos 15000 bytes. Só naquilo que
                 // efetivamente foi preenchido.
                 final byte[] encryptedBytes = Arrays.copyOfRange(rcvdp.getData(), 0, rcvdp.getLength());
-
-                // Métodos para cálculo do desempenho
-                long id = java.lang.Thread.currentThread().getId();
-                ThreadTimes taskUserTimeNano = new ThreadTimes();
-                ThreadTimes taskSystemTimeNano = new ThreadTimes();
-                ThreadTimes taskCpuTimeNano = new ThreadTimes();
-                
+            
                 // Decriptografa
                 byte[] decryptedBytes = null;
                 switch (Client.algorithm) {
@@ -217,21 +227,9 @@ public class Client {
                     case XOR:
                         decryptedBytes = criptaDecripta(encryptedBytes);
                         break;
-                    case Nenhum:
-                        decryptedBytes = encryptedBytes;
-                        break;
                     default:
                         throw new IllegalArgumentException("Algoritmo não previsto");
                 }
-
-                // Métodos para cálculo do desempenho
-                long userTimeNano = taskUserTimeNano.getCpuTime(id);
-                long systemTimeNano = taskSystemTimeNano.getSystemTime(id);
-                long cpuTimeNano = taskCpuTimeNano.getCpuTime(id);
-                
-                System.out.println("taskUserTimeNano: " + userTimeNano);
-                System.out.println("taskSystemTimeNano: " + systemTimeNano);
-                System.out.println("taskCpuTimeNano: " + cpuTimeNano);
                 
                 // Constroi o pacote com os dados decriptografados.
                 final RTPPacket rtpPacket = new RTPPacket(decryptedBytes, decryptedBytes.length);
@@ -269,7 +267,7 @@ public class Client {
     private final JButton setupButton = new JButton("Conectar");
     private final JButton playButton = new JButton("Play");
     private final JButton pauseButton = new JButton("Pause");
-    // private final JButton stopButton = new JButton("Stop");
+    private final JButton stopButton = new JButton("Stop");
     private final JButton tearButton = new JButton("Finalizar");
     private final JPanel mainPanel = new JPanel();
     private final JPanel buttonPanel = new JPanel();
@@ -355,12 +353,12 @@ public class Client {
         buttonPanel.add(setupButton);
         buttonPanel.add(playButton);
         buttonPanel.add(pauseButton);
-        // buttonPanel.add(stopButton);
+        buttonPanel.add(stopButton);
         buttonPanel.add(tearButton);
         setupButton.addActionListener(new setupButtonListener());
         playButton.addActionListener(new playButtonListener());
         pauseButton.addActionListener(new pauseButtonListener());
-        // stopButton.addActionListener(new stopButtonListener());
+        stopButton.addActionListener(new stopButtonListener());
         tearButton.addActionListener(new tearButtonListener());
 
         // Image display label

@@ -8,8 +8,10 @@ import javax.crypto.spec.SecretKeySpec;
 
 public class AESUtilities {
 
-    private static final String ALGORITHM = "AES";
-    private static final String TRANSFORMATION = "AES/CBC/PKCS5Padding";
+    //private static final String ALGORITHM = "AES";
+    private static final String ALGORITHM = "DES";
+    private static final String TRANSFORMATION = "DES/CBC/PKCS5Padding";
+    //private static final String TRANSFORMATION = "AES/CBC/PKCS5Padding";
     private static final String KEY_STRING = "ddafXA1afcf6b1cf";
     private static final String INITIAL_VECTOR_STRING = "a33dc00670g13edf";
 
@@ -37,3 +39,4 @@ public class AESUtilities {
     }
 
 }
+
