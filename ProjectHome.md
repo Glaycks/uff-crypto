@@ -1,0 +1,2 @@
+# Analysis Performance of Cryptography Algorithms on Client-Server Video Stream #
+This project aims to conduct a study of algorithms for symmetric key encryption: DES, 3DES, AES and Blowfish, in a client-server application for streaming video. These algorithms will be applied at the application layer using the Java JCE framework, ensuring the server, encryption of data packets containing the video. The client operates similarly performing the decryption of packets. The application is executed on the protocols RTP, RTSP and UDP.
